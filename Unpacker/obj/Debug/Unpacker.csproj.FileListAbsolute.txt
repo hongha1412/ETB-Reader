@@ -1,0 +1,12 @@
+C:\Users\work\source\repos\Unpacker\Unpacker\bin\Debug\Unpacker.exe.config
+C:\Users\work\source\repos\Unpacker\Unpacker\bin\Debug\Unpacker.exe
+C:\Users\work\source\repos\Unpacker\Unpacker\bin\Debug\Unpacker.pdb
+C:\Users\work\source\repos\Unpacker\Unpacker\bin\Debug\Crc32.NET.dll
+C:\Users\work\source\repos\Unpacker\Unpacker\bin\Debug\Crc32.NET.xml
+C:\Users\work\source\repos\Unpacker\Unpacker\obj\Debug\Unpacker.Main.resources
+C:\Users\work\source\repos\Unpacker\Unpacker\obj\Debug\Unpacker.Properties.Resources.resources
+C:\Users\work\source\repos\Unpacker\Unpacker\obj\Debug\Unpacker.csproj.GenerateResource.cache
+C:\Users\work\source\repos\Unpacker\Unpacker\obj\Debug\Unpacker.csproj.CoreCompileInputs.cache
+C:\Users\work\source\repos\Unpacker\Unpacker\obj\Debug\Unpacker.exe
+C:\Users\work\source\repos\Unpacker\Unpacker\obj\Debug\Unpacker.pdb
+C:\Users\work\source\repos\Unpacker\Unpacker\obj\Debug\Unpacker.csproj.AssemblyReference.cache

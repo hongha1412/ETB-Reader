@@ -1,0 +1,14 @@
+<project outputDir="C:\Users\work\source\repos\Unpacker\Unpacker\bin\Debug\Confused" baseDir="C:\Users\work\source\repos\Unpacker\Unpacker\bin\Debug" seed="6n@M@SAPy{GL}IQ5$Dg&lt;{.t[p+z6{[zUvW.mo%J&gt;^p}fK?LeL^lW4fOHiIRU[AaW" debug="true" xmlns="http://confuser.codeplex.com">
+  <rule pattern="true" preset="minimum" inherit="false">
+    <protection id="anti debug" />
+    <protection id="resources" />
+  </rule>
+  <packer id="compressor" />
+  <module path="Unpacker.exe">
+    <rule pattern="true" preset="normal">
+      <protection id="rename" />
+      <protection id="resources" />
+    </rule>
+  </module>
+  <plugin>C:\Users\work\source\repos\Unpacker\Unpacker\bin\Debug\Crc32.NET.dll</plugin>
+</project>
