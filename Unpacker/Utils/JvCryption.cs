@@ -1,4 +1,6 @@
-﻿namespace Unpacker.Utils
+﻿
+
+namespace Unpacker.Utils
 {
     public static class JvCryption
     {

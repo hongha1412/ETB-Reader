@@ -17,6 +17,13 @@ namespace Unpacker
         {
             publicKey = BitConverter.GetBytes(key);
         }
+        public static string ByteArrayToString(byte[] ba)
+        {
+            StringBuilder hex = new StringBuilder(ba.Length * 2);
+            foreach (byte b in ba)
+                hex.AppendFormat("{0:x2}", b);
+            return hex.ToString();
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -35,7 +42,7 @@ namespace Unpacker
             {
                 try
                 {
-                    string path = @"mon_data.etb";
+                    string path = @"spendcool.etb";
                     FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
                     BinaryReader reader = new BinaryReader(fs);
 
@@ -46,13 +53,16 @@ namespace Unpacker
 
 
                     ConvertPublicKey(key);
+                    //Decryption
                     byte[] unpack = JvCryption.JvDcrpytionWithCRC32(data, publicKey);
                     int len = unpack.Length;
+                   
+                    //Decompress file with LZF
                     byte[] decompress = LZF.Decompress(unpack, len);
                     FileStream writeStream;
                     try
                     {
-                        writeStream = new FileStream("Temp_mon_data.etb", FileMode.Create);
+                        writeStream = new FileStream("Temp_spendcool.etb", FileMode.Create);
                         BinaryWriter writeBinay = new BinaryWriter(writeStream);
                         writeBinay.Write(decompress);
                         writeBinay.Close();
@@ -80,9 +90,9 @@ namespace Unpacker
         {
             try
             {
-                string path = @"Temp_mon_data.etb";
+                string path = @"Temp_spendcool.etb";
                 FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
-                BinaryReader reader = new BinaryReader(fs, Encoding.GetEncoding("UTF-16LE"));
+                BinaryReader reader = new BinaryReader(fs,Encoding.GetEncoding("UTF-16LE"));
                 EtbFileHeader header = new EtbFileHeader
                 {
                     RowCount = reader.ReadInt32(),
@@ -90,8 +100,33 @@ namespace Unpacker
                     Unknow2 = reader.ReadInt32(),
                     ColumnCount = reader.ReadInt32()
                 };
+              //  Eval.Execute();
                 Console.WriteLine("Row Count: {0} Unknow : {1} Unknow : {2} Column Count : {3}", header.RowCount, header.Unknow1, header.Unknow2, header.ColumnCount);
-                reader.ReadByte();
+
+                 for(int i = 0; i < header.ColumnCount; i++)
+                {
+
+                    reader.ReadByte();//Start new Header
+
+                    string str = "";
+                    char ch;
+                    while ((int)(ch = reader.ReadChar()) != 10)
+                        str = str + ch;
+                    Console.WriteLine("COL: {0}", str);
+                    //      Console.WriteLine("END :{0}", ByteArrayToString(reader.ReadBytes(0x1)));
+                    Console.WriteLine(reader.ReadInt32());
+                    Console.WriteLine(reader.ReadInt32());
+                    int rtype = reader.ReadInt32(); //Type
+                    Console.WriteLine(reader.ReadInt32());
+                    Console.WriteLine(reader.ReadInt32()); //FF FF 7F 7F
+
+                    string ColumnName = "";
+                    char ch1;
+                    while ((int)(ch1 = reader.ReadChar()) != 10)
+                        ColumnName = ColumnName + ch1;
+                    dataGridView1.Columns.Add(str, "[" + str + "] " + ColumnName);
+                    
+                }
 
             }
             catch (Exception ex)

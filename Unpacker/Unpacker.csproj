@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Obfuscar.2.2.31\build\obfuscar.props" Condition="Exists('..\packages\Obfuscar.2.2.31\build\obfuscar.props')" />
+  <Import Project="..\packages\Gapotchenko.Eazfuscator.NET.2021.2.292\build\Gapotchenko.Eazfuscator.NET.props" Condition="Exists('..\packages\Gapotchenko.Eazfuscator.NET.2021.2.292\build\Gapotchenko.Eazfuscator.NET.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -36,7 +36,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -94,11 +94,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Crc32.NET, Version=1.0.0.0, Culture=neutral, PublicKeyToken=dc0b95cf99bf4e99, processorArchitecture=MSIL">
-      <HintPath>..\packages\Crc32.NET.1.2.0\lib\net20\Crc32.NET.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -118,7 +116,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <AdditionalFiles Include="Utils\EtbFileHeader.cs" />
+    <Compile Include="Utils\EtbFileHeader.cs" />
     <Compile Include="Utils\JvCryption.cs" />
     <Compile Include="Utils\LZF.cs" />
     <EmbeddedResource Include="Main.resx">
@@ -185,6 +183,6 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Obfuscar.2.2.31\build\obfuscar.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Obfuscar.2.2.31\build\obfuscar.props'))" />
+    <Error Condition="!Exists('..\packages\Gapotchenko.Eazfuscator.NET.2021.2.292\build\Gapotchenko.Eazfuscator.NET.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Gapotchenko.Eazfuscator.NET.2021.2.292\build\Gapotchenko.Eazfuscator.NET.props'))" />
   </Target>
 </Project>
