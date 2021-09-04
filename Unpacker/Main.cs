@@ -48,7 +48,7 @@ namespace Unpacker
                     ConvertPublicKey(key);
                     byte[] unpack = JvCryption.JvDcrpytionWithCRC32(data, publicKey);
                     int len = unpack.Length;
-                    byte[] decompress = lzf.Decompress(unpack, len);
+                    byte[] decompress = LZF.Decompress(unpack, len);
                     FileStream writeStream;
                     try
                     {

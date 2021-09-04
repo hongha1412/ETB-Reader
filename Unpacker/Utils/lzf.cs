@@ -2,7 +2,7 @@
 
 namespace Unpacker.Utils
 {
-    public static class lzf
+    public static class LZF
     {
         public static byte[] Decompress(byte[] encryptPacket, int length)
         {
