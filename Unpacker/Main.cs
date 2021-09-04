@@ -33,14 +33,17 @@ namespace Unpacker
             {
                 File.Delete(path);
             }
+            MessageBox.Show("เนื่องจากปัญหาการเข้ารหัส Unicode ทำให้ไม่สามารถอ่านเนื้อหาในบางไฟล์ได้. เนื่องจากโปรแกรมรองรับการอ่าน UTF-16LE เท่านั้น", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         }
 
         private void openFileMenu_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.Filter = "GO Excel table|*.etb";
-            openFileDialog1.Title = "Select a Excel Table File";
+            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            {
+                Filter = "GO Excel table|*.etb",
+                Title = "Select a Excel Table File"
+            };
 
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -126,6 +129,8 @@ namespace Unpacker
                 Console.WriteLine("Row Count: {0} Unknow : {1} Unknow : {2} Column Count : {3}", header.RowCount, header.Unknow1, header.Unknow2, header.ColumnCount);
 
 
+                dataGridView1.Rows.Clear();
+                dataGridView1.Columns.Clear();
                 int[] HeaderType = new int[header.ColumnCount];
                 for (int i = 0; i < header.ColumnCount; i++)
                 {
@@ -151,7 +156,8 @@ namespace Unpacker
                     while ((int)(ch1 = reader.ReadChar()) != 10)
                         ColumnName = ColumnName + ch1;
 
-                    dataGridView1.Columns.Add(str, "[" + str + "] " + ColumnName + " --> " + HeaderType[i]);
+                    //  dataGridView1.Columns.Add(str, "[" + str + "] " + ColumnName + " --> " + HeaderType[i]);
+                    dataGridView1.Columns.Add(str, "[ " + str + " ] " + ColumnName);
                 }
                 for (int j = 0; j < header.RowCount; j++)
                 {
@@ -189,7 +195,7 @@ namespace Unpacker
             MessageBox.Show("No new update :)", "Info");
         }
 
-      
+
     }
 
 }

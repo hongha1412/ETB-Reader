@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Unpacker.Utils
+﻿namespace Unpacker.Utils
 {
-    class CLZF
+    internal class CLZF
     {
     }
 }
