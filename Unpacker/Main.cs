@@ -42,7 +42,7 @@ namespace Unpacker
             {
                 try
                 {
-                    string path = @"spendcool.etb";
+                    string path = @"Mon_Data.etb";
                     FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
                     BinaryReader reader = new BinaryReader(fs);
 
@@ -56,13 +56,13 @@ namespace Unpacker
                     //Decryption
                     byte[] unpack = JvCryption.JvDcrpytionWithCRC32(data, publicKey);
                     int len = unpack.Length;
-                   
+
                     //Decompress file with LZF
                     byte[] decompress = LZF.Decompress(unpack, len);
                     FileStream writeStream;
                     try
                     {
-                        writeStream = new FileStream("Temp_spendcool.etb", FileMode.Create);
+                        writeStream = new FileStream("Temp_Mon_Data.etb", FileMode.Create);
                         BinaryWriter writeBinay = new BinaryWriter(writeStream);
                         writeBinay.Write(decompress);
                         writeBinay.Close();
@@ -90,9 +90,9 @@ namespace Unpacker
         {
             try
             {
-                string path = @"Temp_spendcool.etb";
+                string path = @"Temp_channelexp.etb";
                 FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
-                BinaryReader reader = new BinaryReader(fs,Encoding.GetEncoding("UTF-16LE"));
+                BinaryReader reader = new BinaryReader(fs, Encoding.GetEncoding("UTF-16LE"));
                 EtbFileHeader header = new EtbFileHeader
                 {
                     RowCount = reader.ReadInt32(),
@@ -100,10 +100,12 @@ namespace Unpacker
                     Unknow2 = reader.ReadInt32(),
                     ColumnCount = reader.ReadInt32()
                 };
-              //  Eval.Execute();
+                //  Eval.Execute();
                 Console.WriteLine("Row Count: {0} Unknow : {1} Unknow : {2} Column Count : {3}", header.RowCount, header.Unknow1, header.Unknow2, header.ColumnCount);
 
-                 for(int i = 0; i < header.ColumnCount; i++)
+
+                int[] HeaderType = new int[header.ColumnCount];
+                for (int i = 0; i < header.ColumnCount; i++)
                 {
 
                     reader.ReadByte();//Start new Header
@@ -114,24 +116,45 @@ namespace Unpacker
                         str = str + ch;
                     Console.WriteLine("COL: {0}", str);
                     //      Console.WriteLine("END :{0}", ByteArrayToString(reader.ReadBytes(0x1)));
+                    HeaderType[i] = reader.ReadInt32(); //Type
                     Console.WriteLine(reader.ReadInt32());
                     Console.WriteLine(reader.ReadInt32());
-                    int rtype = reader.ReadInt32(); //Type
                     Console.WriteLine(reader.ReadInt32());
                     Console.WriteLine(reader.ReadInt32()); //FF FF 7F 7F
-
+                    Console.WriteLine("RType: {0}", HeaderType[i]);
+                   
+                    //READ Column name
                     string ColumnName = "";
                     char ch1;
                     while ((int)(ch1 = reader.ReadChar()) != 10)
                         ColumnName = ColumnName + ch1;
-                    dataGridView1.Columns.Add(str, "[" + str + "] " + ColumnName);
-                    
+                   
+                    dataGridView1.Columns.Add(str, "[" + str + "] " + ColumnName + " --> " + HeaderType[i]);
+                }
+                for (int j = 0; j < header.RowCount; j++)
+                {
+                    dataGridView1.Rows.Add();
+                    for (int k = 0; k < header.ColumnCount; k++)
+                    {
+                        if(HeaderType[k] == 0)
+                        {
+                            dataGridView1[k, j].Value = reader.ReadInt32().ToString();
+                        }
+                        else if(HeaderType[k] == 2)
+                        {
+                            string stringname = "";
+                            char stringch;
+                            while ((int)(stringch = reader.ReadChar()) != 10)
+                                stringname = stringname + stringch;
+                            dataGridView1[k, j].Value = stringname.ToString();
+                        }
+                    }
                 }
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.ToString(), "การอ่านไฟล์ล้มเหลว"); ;
             }
         }
 
