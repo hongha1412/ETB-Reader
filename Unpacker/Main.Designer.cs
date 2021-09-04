@@ -42,7 +42,6 @@ namespace Unpacker
             this.readTempFileMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.readItemFile = new System.Windows.Forms.ToolStripMenuItem();
             this.แกไขToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clearTempMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.เกยวกบToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkUpdateMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.เกยวกบโปรแกรมToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -154,18 +153,9 @@ namespace Unpacker
             // 
             // แกไขToolStripMenuItem
             // 
-            this.แกไขToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.clearTempMenu});
             this.แกไขToolStripMenuItem.Name = "แกไขToolStripMenuItem";
             this.แกไขToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.แกไขToolStripMenuItem.Text = "Edit";
-            // 
-            // clearTempMenu
-            // 
-            this.clearTempMenu.Name = "clearTempMenu";
-            this.clearTempMenu.Size = new System.Drawing.Size(180, 22);
-            this.clearTempMenu.Text = "Clear Temp";
-            this.clearTempMenu.Click += new System.EventHandler(this.clearTempMenu_Click);
             // 
             // เกยวกบToolStripMenuItem
             // 
@@ -287,7 +277,6 @@ namespace Unpacker
         private System.Windows.Forms.ToolStripMenuItem excelFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem readTempFileMenu;
         private System.Windows.Forms.ToolStripMenuItem readItemFile;
-        private System.Windows.Forms.ToolStripMenuItem clearTempMenu;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.ToolStripMenuItem checkUpdateMenu;

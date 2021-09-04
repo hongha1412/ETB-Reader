@@ -151,23 +151,6 @@ namespace Unpacker
             }
         }
 
-        private void clearTempMenu_Click(object sender, EventArgs e)
-        {
-
-            if (File.Exists(@"FCTemp"))
-            {
-                File.Delete(@"FCTemp");
-            }
-            if (File.Exists(@"Temp_hidden_cash.etb"))
-            {
-                File.Delete(@"Temp_hidden_cash.etb");
-            }
-            if (File.Exists(@"Temp_channelexp.etb"))
-            {
-                File.Delete(@"Temp_channelexp.etb");
-            }
-        }
-
         private void checkUpdateMenu_Click(object sender, EventArgs e)
         {
             MessageBox.Show("No new update :)", "Info");
