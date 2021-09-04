@@ -30,6 +30,7 @@ namespace Unpacker
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -40,8 +41,6 @@ namespace Unpacker
             this.binaryFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.เอกสารขอความToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.excelFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.readTempFileMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.readItemFile = new System.Windows.Forms.ToolStripMenuItem();
             this.แกไขToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.เกยวกบToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkUpdateMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,6 +51,8 @@ namespace Unpacker
             this.expired20220905235959ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.userDEVLICENSEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.labelRowCount = new System.Windows.Forms.Label();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -87,9 +88,7 @@ namespace Unpacker
             this.ไฟลToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openFileMenu,
             this.บนทกToolStripMenuItem,
-            this.สงออกToolStripMenuItem,
-            this.readTempFileMenu,
-            this.readItemFile});
+            this.สงออกToolStripMenuItem});
             this.ไฟลToolStripMenuItem.Name = "ไฟลToolStripMenuItem";
             this.ไฟลToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.ไฟลToolStripMenuItem.Text = "File";
@@ -97,14 +96,14 @@ namespace Unpacker
             // openFileMenu
             // 
             this.openFileMenu.Name = "openFileMenu";
-            this.openFileMenu.Size = new System.Drawing.Size(182, 22);
+            this.openFileMenu.Size = new System.Drawing.Size(180, 22);
             this.openFileMenu.Text = "Open";
             this.openFileMenu.Click += new System.EventHandler(this.openFileMenu_Click);
             // 
             // บนทกToolStripMenuItem
             // 
             this.บนทกToolStripMenuItem.Name = "บนทกToolStripMenuItem";
-            this.บนทกToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.บนทกToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.บนทกToolStripMenuItem.Text = "Save";
             // 
             // สงออกToolStripMenuItem
@@ -114,7 +113,7 @@ namespace Unpacker
             this.เอกสารขอความToolStripMenuItem,
             this.excelFileToolStripMenuItem});
             this.สงออกToolStripMenuItem.Name = "สงออกToolStripMenuItem";
-            this.สงออกToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.สงออกToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.สงออกToolStripMenuItem.Text = "Export";
             // 
             // binaryFileToolStripMenuItem
@@ -134,22 +133,6 @@ namespace Unpacker
             this.excelFileToolStripMenuItem.Name = "excelFileToolStripMenuItem";
             this.excelFileToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.excelFileToolStripMenuItem.Text = "Excel File";
-            // 
-            // readTempFileMenu
-            // 
-            this.readTempFileMenu.BackColor = System.Drawing.Color.Yellow;
-            this.readTempFileMenu.Name = "readTempFileMenu";
-            this.readTempFileMenu.Size = new System.Drawing.Size(182, 22);
-            this.readTempFileMenu.Text = "Read Temp file";
-            this.readTempFileMenu.Click += new System.EventHandler(this.readTempFileMenu_Click);
-            // 
-            // readItemFile
-            // 
-            this.readItemFile.BackColor = System.Drawing.Color.LightYellow;
-            this.readItemFile.Name = "readItemFile";
-            this.readItemFile.Size = new System.Drawing.Size(182, 22);
-            this.readItemFile.Text = "อ่าน item.itm (TODO)";
-            this.readItemFile.Click += new System.EventHandler(this.readItemFile_Click);
             // 
             // แกไขToolStripMenuItem
             // 
@@ -224,7 +207,6 @@ namespace Unpacker
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -233,18 +215,41 @@ namespace Unpacker
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.ColumnHeadersHeight = 32;
+            this.dataGridView1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dataGridView1.Location = new System.Drawing.Point(0, 27);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(1134, 531);
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridView1.Size = new System.Drawing.Size(1134, 538);
+            this.dataGridView1.StandardTab = true;
             this.dataGridView1.TabIndex = 9;
+            // 
+            // labelRowCount
+            // 
+            this.labelRowCount.AutoSize = true;
+            this.labelRowCount.Location = new System.Drawing.Point(269, 9);
+            this.labelRowCount.Name = "labelRowCount";
+            this.labelRowCount.Size = new System.Drawing.Size(75, 13);
+            this.labelRowCount.TabIndex = 10;
+            this.labelRowCount.Text = "Row Count : 0";
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1134, 556);
+            this.ClientSize = new System.Drawing.Size(1134, 564);
+            this.Controls.Add(this.labelRowCount);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.menuStrip1);
@@ -274,8 +279,6 @@ namespace Unpacker
         private System.Windows.Forms.ToolStripMenuItem binaryFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem เอกสารขอความToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem excelFileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem readTempFileMenu;
-        private System.Windows.Forms.ToolStripMenuItem readItemFile;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.ToolStripMenuItem checkUpdateMenu;
         private System.Windows.Forms.ToolStripMenuItem เกยวกบโปรแกรมToolStripMenuItem;
@@ -284,6 +287,8 @@ namespace Unpacker
         private System.Windows.Forms.ToolStripMenuItem licenseAG001400TA00054100041XToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem expired20220905235959ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem userDEVLICENSEToolStripMenuItem;
+        private System.Windows.Forms.Label labelRowCount;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 

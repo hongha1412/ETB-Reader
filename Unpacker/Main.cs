@@ -38,59 +38,80 @@ namespace Unpacker
 
         private void openFileMenu_Click(object sender, EventArgs e)
         {
-            try
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Filter = "GO Excel table|*.etb";
+            openFileDialog1.Title = "Select a Excel Table File";
+
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
+
+
+                string fullpath = openFileDialog1.FileName;
+                string directoryPath = Path.GetDirectoryName(fullpath);
+                string filename = System.IO.Path.GetFileName(fullpath);
+                Console.WriteLine("full Path: {0}", fullpath);
+                Console.WriteLine("Path: {0}", directoryPath);
+                Console.WriteLine("Filename : {0}", filename);
+
                 try
                 {
-                    string path = @"Mon_Data.etb";
-                    FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
-                    BinaryReader reader = new BinaryReader(fs);
 
-                    int Header1 = reader.ReadInt32();
-                    long key = reader.ReadInt64();
-                    int Header2 = reader.ReadInt32();
-                    byte[] data = reader.ReadBytes((int)fs.Length - 4);
-
-
-                    ConvertPublicKey(key);
-                    //Decryption
-                    byte[] unpack = JvCryption.JvDcrpytionWithCRC32(data, publicKey);
-                    int len = unpack.Length;
-
-                    //Decompress file with LZF
-                    byte[] decompress = LZF.Decompress(unpack, len);
-                    FileStream writeStream;
                     try
                     {
-                        writeStream = new FileStream("Temp_Mon_Data.etb", FileMode.Create);
-                        BinaryWriter writeBinay = new BinaryWriter(writeStream);
-                        writeBinay.Write(decompress);
-                        writeBinay.Close();
+                        string path = fullpath;
+                        FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
+                        BinaryReader reader = new BinaryReader(fs);
+
+                        int Header1 = reader.ReadInt32();
+                        long key = reader.ReadInt64();
+                        int Header2 = reader.ReadInt32();
+                        byte[] data = reader.ReadBytes((int)fs.Length - 4);
+
+
+                        ConvertPublicKey(key);
+                        //Decryption
+                        byte[] unpack = JvCryption.JvDcrpytionWithCRC32(data, publicKey);
+                        int len = unpack.Length;
+
+                        //Decompress file with LZF
+                        byte[] decompress = LZF.Decompress(unpack, len);
+                        string tempfilename = directoryPath + @"\" + "_Temp_" + filename;
+                        FileStream writeStream;
+                        try
+                        {
+                            writeStream = new FileStream(tempfilename, FileMode.Create);
+                            BinaryWriter writeBinay = new BinaryWriter(writeStream);
+                            writeBinay.Write(decompress);
+                            writeBinay.Close();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.ToString());
+                        }
+                        readData(tempfilename);
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.ToString());
                     }
-
                 }
-                catch (Exception ex)
+                catch
                 {
-                    MessageBox.Show(ex.ToString());
+
+
+                    MessageBox.Show("ไม่สามารถอ่านไฟล์ได้", "ERROR", MessageBoxButtons.OK);
                 }
-            }
-            catch
-            {
 
 
-                MessageBox.Show("This file is using by another process. \nPlease try again later.", "ERROR", MessageBoxButtons.OK);
             }
         }
 
-        private void readTempFileMenu_Click(object sender, EventArgs e)
+
+        public void readData(string filename)
         {
             try
             {
-                string path = @"Temp_channelexp.etb";
+                string path = filename;
                 FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
                 BinaryReader reader = new BinaryReader(fs, Encoding.GetEncoding("UTF-16LE"));
                 EtbFileHeader header = new EtbFileHeader
@@ -100,6 +121,7 @@ namespace Unpacker
                     Unknow2 = reader.ReadInt32(),
                     ColumnCount = reader.ReadInt32()
                 };
+                labelRowCount.Text = "จำนวนแถวคอลัมน์ : " + header.ColumnCount.ToString() + " จำนวนแถวข้อมูล : " + header.RowCount.ToString();
                 //  Eval.Execute();
                 Console.WriteLine("Row Count: {0} Unknow : {1} Unknow : {2} Column Count : {3}", header.RowCount, header.Unknow1, header.Unknow2, header.ColumnCount);
 
@@ -122,13 +144,13 @@ namespace Unpacker
                     Console.WriteLine(reader.ReadInt32());
                     Console.WriteLine(reader.ReadInt32()); //FF FF 7F 7F
                     Console.WriteLine("RType: {0}", HeaderType[i]);
-                   
+
                     //READ Column name
                     string ColumnName = "";
                     char ch1;
                     while ((int)(ch1 = reader.ReadChar()) != 10)
                         ColumnName = ColumnName + ch1;
-                   
+
                     dataGridView1.Columns.Add(str, "[" + str + "] " + ColumnName + " --> " + HeaderType[i]);
                 }
                 for (int j = 0; j < header.RowCount; j++)
@@ -136,11 +158,11 @@ namespace Unpacker
                     dataGridView1.Rows.Add();
                     for (int k = 0; k < header.ColumnCount; k++)
                     {
-                        if(HeaderType[k] == 0)
+                        if (HeaderType[k] == 0)
                         {
                             dataGridView1[k, j].Value = reader.ReadInt32().ToString();
                         }
-                        else if(HeaderType[k] == 2)
+                        else if (HeaderType[k] == 2)
                         {
                             string stringname = "";
                             char stringch;
@@ -150,7 +172,11 @@ namespace Unpacker
                         }
                     }
                 }
-
+                fs.Close();
+                if (File.Exists(filename))
+                {
+                    File.Delete(filename);
+                }
             }
             catch (Exception ex)
             {
@@ -158,61 +184,12 @@ namespace Unpacker
             }
         }
 
-        private void readItemFile_Click(object sender, EventArgs e)
-        {
-            try
-            {
-
-                try
-                {
-                    string path = @"item.itm";
-                    FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
-                    BinaryReader reader = new BinaryReader(fs);
-
-                    long header = reader.ReadInt64();
-                    long key = reader.ReadInt64();
-                    byte[] data = reader.ReadBytes((int)fs.Length - 16);
-                    ConvertPublicKey(key);
-                    Console.WriteLine("Key: {0}", key.ToString());
-                    byte[] unpack = JvCryption.JvDcrpytionWithCRC32(data, publicKey);
-                    // int len = unpack.Length;
-                    //   byte[] decompress = Decrypt2(unpack, len);
-                    FileStream writeStream;
-                    try
-                    {
-                        writeStream = new FileStream("FCTemp", FileMode.Create);
-                        BinaryWriter writeBinay = new BinaryWriter(writeStream);
-                        for (int i = 0; i < unpack.Length; i++)
-                        {
-                            writeBinay.Write(unpack[i] - 20);
-                        }
-                        writeBinay.Close();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.ToString());
-                    }
-                    fs.Close();
-
-                    MessageBox.Show("บันทึก FCTemp สำเร็จ", "");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString());
-                }
-
-            }
-            catch
-            {
-
-                MessageBox.Show("This file is using by another process. \nPlease try again later.", "ERROR", MessageBoxButtons.OK);
-            }
-        }
-
         private void checkUpdateMenu_Click(object sender, EventArgs e)
         {
             MessageBox.Show("No new update :)", "Info");
         }
+
+      
     }
 
 }

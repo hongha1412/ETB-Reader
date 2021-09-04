@@ -4,7 +4,7 @@ namespace Unpacker.Utils
 {
     public static class LZF
     {
-        public static byte[] Decompress(byte[] encryptPacket, int length)
+        public static byte[] Decompress(byte[] Data, int length)
         {
             int i = 0; // v5
             int j = 0; // v7
@@ -12,7 +12,7 @@ namespace Unpacker.Utils
             int l = 0; // v14
             int v4 = 0;
             byte[] v5 = new byte[0x20000];
-            Array.Copy(encryptPacket, v5, encryptPacket.Length);
+            Array.Copy(Data, v5, Data.Length);
             byte[] v7 = new byte[0x20000];
             int v8 = 0;
             int v9 = 0;
