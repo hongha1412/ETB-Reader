@@ -13,17 +13,12 @@ namespace Unpacker
             InitializeComponent();
         }
         public byte[] publicKey;
+
         public void ConvertPublicKey(long key)
         {
             publicKey = BitConverter.GetBytes(key);
         }
-        public static string ByteArrayToString(byte[] ba)
-        {
-            StringBuilder hex = new StringBuilder(ba.Length * 2);
-            foreach (byte b in ba)
-                hex.AppendFormat("{0:x2}", b);
-            return hex.ToString();
-        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -33,8 +28,6 @@ namespace Unpacker
             {
                 File.Delete(path);
             }
-            MessageBox.Show("เนื่องจากปัญหาการเข้ารหัส Unicode ทำให้ไม่สามารถอ่านเนื้อหาในบางไฟล์ได้. เนื่องจากโปรแกรมรองรับการอ่าน UTF-16LE เท่านั้น", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
         }
 
         private void openFileMenu_Click(object sender, EventArgs e)
@@ -125,13 +118,15 @@ namespace Unpacker
                     ColumnCount = reader.ReadInt32()
                 };
                 labelRowCount.Text = "จำนวนแถวคอลัมน์ : " + header.ColumnCount.ToString() + " จำนวนแถวข้อมูล : " + header.RowCount.ToString();
-                //  Eval.Execute();
+                labelRowCount.Visible = true;
                 Console.WriteLine("Row Count: {0} Unknow : {1} Unknow : {2} Column Count : {3}", header.RowCount, header.Unknow1, header.Unknow2, header.ColumnCount);
 
 
                 dataGridView1.Rows.Clear();
                 dataGridView1.Columns.Clear();
+
                 int[] HeaderType = new int[header.ColumnCount];
+
                 for (int i = 0; i < header.ColumnCount; i++)
                 {
 
@@ -152,12 +147,14 @@ namespace Unpacker
                     //READ Column name
                     string ColumnName = "";
                     char ch1;
-                    while ((int)(ch1 = reader.ReadChar()) != 10)
-                        ColumnName = ColumnName + ch1;
+                    while ((int)(ch1 = reader.ReadChar()) != 10) ColumnName = ColumnName + ch1;
 
-                    //  dataGridView1.Columns.Add(str, "[" + str + "] " + ColumnName + " --> " + HeaderType[i]);
+
                     dataGridView1.Columns.Add(str, "[ " + str + " ] " + ColumnName);
                 }
+
+
+                //ReadContent
                 for (int j = 0; j < header.RowCount; j++)
                 {
                     dataGridView1.Rows.Add();

@@ -241,6 +241,7 @@ namespace Unpacker
             this.labelRowCount.Size = new System.Drawing.Size(75, 13);
             this.labelRowCount.TabIndex = 10;
             this.labelRowCount.Text = "Row Count : 0";
+            this.labelRowCount.Visible = false;
             // 
             // openFileDialog1
             // 
