@@ -139,10 +139,9 @@ namespace Unpacker
 
                     string str = "";
                     char ch;
-                    while ((int)(ch = reader.ReadChar()) != 10)
+                    while ((int)(ch = reader.ReadChar()) != 10) //stop when byte == 0xA
                         str = str + ch;
                     Console.WriteLine("COL: {0}", str);
-                    //      Console.WriteLine("END :{0}", ByteArrayToString(reader.ReadBytes(0x1)));
                     HeaderType[i] = reader.ReadInt32(); //Type
                     Console.WriteLine(reader.ReadInt32());
                     Console.WriteLine(reader.ReadInt32());
