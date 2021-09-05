@@ -7,6 +7,7 @@ namespace Unpacker.Utils
         public static byte[] privateKey = { 0x29, 0x6B, 0xD6, 0xEB, 0x2C, 0xA9, 0x03, 0x21 };
         public static byte[] JvDcrpytionWithCRC32(byte[] data, byte[] publicKey)
         {
+
             int len = data.Length;
             byte[] result = new byte[len];
             bool isCorrectLength = (len == 0 | len < 0);

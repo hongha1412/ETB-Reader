@@ -8,8 +8,10 @@ using Unpacker.Utils;
 
 namespace Unpacker
 {
+
     public partial class Main : Form
     {
+        public byte[] privateKey = { 0x29, 0x6B, 0xD6, 0xEB, 0x2C, 0xA9, 0x03, 0x21 };
         public Main()
         {
             InitializeComponent();
@@ -69,7 +71,7 @@ namespace Unpacker
                         int Header1 = reader.ReadInt32();
                         long key = reader.ReadInt64();
                         int Header2 = reader.ReadInt32();
-                        byte[] data = reader.ReadBytes((int)fs.Length - 10);
+                        byte[] data = reader.ReadBytes((int)fs.Length - 16);
 
 
                         ConvertPublicKey(key);
@@ -80,8 +82,8 @@ namespace Unpacker
                         int len = unpack.Length;
 
                         //Decompress file with LZF
-                         byte[] decompress = LZF.Decompress(unpack, len);
-                      
+                        byte[] decompress = LZF.Decompress(unpack, len);
+
                         string tempfilename = directoryPath + @"\" + "_Temp_" + filename;
                         FileStream writeStream;
                         try
@@ -111,7 +113,7 @@ namespace Unpacker
             }
         }
 
-        EtbFileHeader header = new EtbFileHeader();
+        private readonly EtbFileHeader header = new EtbFileHeader();
         public void readData(string filename)
         {
             try
@@ -175,7 +177,7 @@ namespace Unpacker
                         }
                         else if (HeaderType[k] == 2)
                         {
-                          //  Console.log()
+                            //  Console.log()
                             string stringname = "";
                             char stringch;
                             while ((int)(stringch = reader.ReadChar()) != 10)
@@ -200,13 +202,15 @@ namespace Unpacker
             }
         }
 
-    
+
 
         private void exportToTextFileMenu_Click(object sender, EventArgs e)
         {
-            SaveFileDialog dialog = new SaveFileDialog();
-            dialog.Filter = "Text File|*.txt";
-            var result = dialog.ShowDialog();
+            SaveFileDialog dialog = new SaveFileDialog
+            {
+                Filter = "Text File|*.txt"
+            };
+            DialogResult result = dialog.ShowDialog();
             if (result != DialogResult.OK)
                 return;
 
@@ -214,7 +218,7 @@ namespace Unpacker
             dataGridView1.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             dataGridView1.SelectAll();
             // hiding row headers to avoid extra \t in exported text
-            var rowHeaders = dataGridView1.RowHeadersVisible;
+            bool rowHeaders = dataGridView1.RowHeadersVisible;
             dataGridView1.RowHeadersVisible = false;
 
             // ! creating text from grid values
@@ -258,7 +262,7 @@ namespace Unpacker
                     Console.WriteLine(key);
                     byte[] data = reader.ReadBytes((int)fs.Length - 16);
                     byte[] unpack = JvCryption.JvDcrpytionWithCRC32(data, publicKey);
-                    
+
                     try
                     {
                         FileStream writeStream;
