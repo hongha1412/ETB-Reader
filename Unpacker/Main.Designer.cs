@@ -41,8 +41,8 @@ namespace Unpacker
             this.binaryFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToTextFileMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.excelFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openItemFileMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.แกไขToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rEADToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.เกยวกบToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkUpdateMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.เกยวกบโปรแกรมToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -87,7 +87,8 @@ namespace Unpacker
             this.ไฟลToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openFileMenu,
             this.บนทกToolStripMenuItem,
-            this.สงออกToolStripMenuItem});
+            this.สงออกToolStripMenuItem,
+            this.openItemFileMenu});
             this.ไฟลToolStripMenuItem.Name = "ไฟลToolStripMenuItem";
             this.ไฟลToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.ไฟลToolStripMenuItem.Text = "File";
@@ -95,14 +96,14 @@ namespace Unpacker
             // openFileMenu
             // 
             this.openFileMenu.Name = "openFileMenu";
-            this.openFileMenu.Size = new System.Drawing.Size(180, 22);
+            this.openFileMenu.Size = new System.Drawing.Size(151, 22);
             this.openFileMenu.Text = "Open";
             this.openFileMenu.Click += new System.EventHandler(this.openFileMenu_Click);
             // 
             // บนทกToolStripMenuItem
             // 
             this.บนทกToolStripMenuItem.Name = "บนทกToolStripMenuItem";
-            this.บนทกToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.บนทกToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.บนทกToolStripMenuItem.Text = "Save";
             // 
             // สงออกToolStripMenuItem
@@ -112,7 +113,7 @@ namespace Unpacker
             this.exportToTextFileMenu,
             this.excelFileToolStripMenuItem});
             this.สงออกToolStripMenuItem.Name = "สงออกToolStripMenuItem";
-            this.สงออกToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.สงออกToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.สงออกToolStripMenuItem.Text = "Export";
             // 
             // binaryFileToolStripMenuItem
@@ -134,20 +135,18 @@ namespace Unpacker
             this.excelFileToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.excelFileToolStripMenuItem.Text = "Excel File";
             // 
+            // openItemFileMenu
+            // 
+            this.openItemFileMenu.Name = "openItemFileMenu";
+            this.openItemFileMenu.Size = new System.Drawing.Size(151, 22);
+            this.openItemFileMenu.Text = "Open Item File";
+            this.openItemFileMenu.Click += new System.EventHandler(this.openItemFileMenu_Click);
+            // 
             // แกไขToolStripMenuItem
             // 
-            this.แกไขToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.rEADToolStripMenuItem});
             this.แกไขToolStripMenuItem.Name = "แกไขToolStripMenuItem";
             this.แกไขToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.แกไขToolStripMenuItem.Text = "Edit";
-            // 
-            // rEADToolStripMenuItem
-            // 
-            this.rEADToolStripMenuItem.Name = "rEADToolStripMenuItem";
-            this.rEADToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
-            this.rEADToolStripMenuItem.Text = "READ";
-            this.rEADToolStripMenuItem.Click += new System.EventHandler(this.rEADToolStripMenuItem_Click);
             // 
             // เกยวกบToolStripMenuItem
             // 
@@ -290,7 +289,7 @@ namespace Unpacker
         private System.Windows.Forms.Label labelRowCount;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Label currentOpenFileLabel;
-        private System.Windows.Forms.ToolStripMenuItem rEADToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openItemFileMenu;
     }
 }
 

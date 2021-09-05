@@ -69,35 +69,19 @@ namespace Unpacker
                         int Header1 = reader.ReadInt32();
                         long key = reader.ReadInt64();
                         int Header2 = reader.ReadInt32();
-                        byte[] data = reader.ReadBytes((int)fs.Length - 16);
+                        byte[] data = reader.ReadBytes((int)fs.Length - 10);
 
 
                         ConvertPublicKey(key);
+                        Console.WriteLine(key);
+
                         //Decryption
                         byte[] unpack = JvCryption.JvDcrpytionWithCRC32(data, publicKey);
                         int len = unpack.Length;
 
                         //Decompress file with LZF
-                        //  byte[] decompress = LZF.Decompress(unpack, len);
-                        byte[] decompress;
-                        switch (filename)
-                        {
-                            case "mon_data.etb":
-                                decompress = CLZF2.Decompress(unpack, len);
-                                break;
-                            case "hidden_cash.etb":
-                                decompress = LZF.Decompress(unpack, len);
-                                break;
-                            case "listquest.etb":
-                                decompress = LZF.Decompress(unpack, len);
-                                break;
-                            case "trade_table.etb":
-                                decompress = LZF.Decompress(unpack, len);
-                                break;
-                            default:
-                                decompress = LZF.Decompress(unpack, len);
-                                break;
-                        }
+                         byte[] decompress = LZF.Decompress(unpack, len);
+                      
                         string tempfilename = directoryPath + @"\" + "_Temp_" + filename;
                         FileStream writeStream;
                         try
@@ -208,14 +192,15 @@ namespace Unpacker
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "การอ่านไฟล์ล้มเหลว"); ;
+                MessageBox.Show(ex.ToString(), "การอ่านไฟล์ล้มเหลว");
+                if (File.Exists(filename))
+                {
+                    File.Delete(filename);
+                }
             }
         }
 
-        private void rEADToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Console.WriteLine(dataGridView1[1, 1]);
-        }
+    
 
         private void exportToTextFileMenu_Click(object sender, EventArgs e)
         {
@@ -241,6 +226,58 @@ namespace Unpacker
 
             System.IO.File.WriteAllText(dialog.FileName, content);
             MessageBox.Show(@" บันทีกข้อมูลเป็นไฟล์ .txt สำเร็จ");
+        }
+
+        private void openItemFileMenu_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            {
+                Filter = "GO Item table|*.itm",
+                Title = "Select a Item Table File"
+            };
+
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+
+                string fullpath = openFileDialog1.FileName;
+                string directoryPath = Path.GetDirectoryName(fullpath);
+                string filename = System.IO.Path.GetFileName(fullpath);
+                Console.WriteLine("full Path: {0}", fullpath);
+                Console.WriteLine("Path: {0}", directoryPath);
+                Console.WriteLine("Filename : {0}", filename);
+
+                try
+                {
+                    string path = fullpath;
+                    FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
+                    BinaryReader reader = new BinaryReader(fs);
+                    byte[] FileHeader = reader.ReadBytes(0x8);
+                    long key = reader.ReadInt64();
+
+                    ConvertPublicKey(key);
+                    Console.WriteLine(key);
+                    byte[] data = reader.ReadBytes((int)fs.Length - 16);
+                    byte[] unpack = JvCryption.JvDcrpytionWithCRC32(data, publicKey);
+                    
+                    try
+                    {
+                        FileStream writeStream;
+                        writeStream = new FileStream(@"FCTemp", FileMode.Create);
+                        BinaryWriter writeBinay = new BinaryWriter(writeStream);
+                        writeBinay.Write(unpack);
+                        writeBinay.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString());
+                    }
+
+                }
+                catch
+                {
+                    MessageBox.Show("การอ่านไฟล์ล้มเหลว", "");
+                }
+            }
         }
     }
 
