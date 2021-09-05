@@ -78,7 +78,7 @@ namespace Unpacker
                         Console.WriteLine(key);
 
                         //Decryption
-                        byte[] unpack = JvCryption.JvDcrpytionWithCRC32(data, publicKey);
+                        byte[] unpack = JvCryption.JvDcrpytion(data, publicKey);
                         int len = unpack.Length;
 
                         //Decompress file with LZF
@@ -261,7 +261,7 @@ namespace Unpacker
                     ConvertPublicKey(key);
                     Console.WriteLine(key);
                     byte[] data = reader.ReadBytes((int)fs.Length - 16);
-                    byte[] unpack = JvCryption.JvDcrpytionWithCRC32(data, publicKey);
+                    byte[] unpack = JvCryption.JvItemDecryption(data, publicKey);
 
                     try
                     {
@@ -270,16 +270,19 @@ namespace Unpacker
                         BinaryWriter writeBinay = new BinaryWriter(writeStream);
                         writeBinay.Write(unpack);
                         writeBinay.Close();
+                        MessageBox.Show("Saved FCTemp", "Info");
+
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.ToString());
                     }
+                    fs.Close();
 
                 }
                 catch
                 {
-                    MessageBox.Show("การอ่านไฟล์ล้มเหลว", "");
+                    MessageBox.Show("Failed to Decrypted Item File", "Error");
                 }
             }
         }
