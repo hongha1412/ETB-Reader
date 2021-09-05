@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoUpdaterDotNET;
+using System;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
@@ -10,7 +11,12 @@ namespace Unpacker
     {
         public Main()
         {
+            AutoUpdater.Start("https://cdn.pleum.in.th/ETBWorld/AutoUpdater.xml");
+            AutoUpdater.Synchronous = true;
+            AutoUpdater.Mandatory = true;
+            AutoUpdater.UpdateMode = Mode.Forced;
             InitializeComponent();
+            
         }
         public byte[] publicKey;
 
@@ -85,6 +91,8 @@ namespace Unpacker
                             MessageBox.Show(ex.ToString());
                         }
                         readData(tempfilename);
+                        currentOpenFileLabel.Text = "ไฟล์ปัจจุบัน : " + filename;
+                        currentOpenFileLabel.Visible = true;
                     }
                     catch (Exception ex)
                     {
@@ -186,12 +194,7 @@ namespace Unpacker
             }
         }
 
-        private void checkUpdateMenu_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("No new update :)", "Info");
-        }
-
-
+        
     }
 
 }

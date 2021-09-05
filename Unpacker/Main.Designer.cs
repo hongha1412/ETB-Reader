@@ -45,14 +45,12 @@ namespace Unpacker
             this.เกยวกบToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkUpdateMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.เกยวกบโปรแกรมToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.version10BetaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CurrentVersion = new System.Windows.Forms.ToolStripMenuItem();
             this.authorSopanatxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.licenseAG001400TA00054100041XToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.expired20220905235959ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.userDEVLICENSEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.labelRowCount = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.currentOpenFileLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -154,54 +152,29 @@ namespace Unpacker
             this.checkUpdateMenu.Name = "checkUpdateMenu";
             this.checkUpdateMenu.Size = new System.Drawing.Size(180, 22);
             this.checkUpdateMenu.Text = "Check Update";
-            this.checkUpdateMenu.Click += new System.EventHandler(this.checkUpdateMenu_Click);
             // 
             // เกยวกบโปรแกรมToolStripMenuItem
             // 
             this.เกยวกบโปรแกรมToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.version10BetaToolStripMenuItem,
-            this.authorSopanatxToolStripMenuItem,
-            this.licenseAG001400TA00054100041XToolStripMenuItem,
-            this.expired20220905235959ToolStripMenuItem,
-            this.userDEVLICENSEToolStripMenuItem});
+            this.CurrentVersion,
+            this.authorSopanatxToolStripMenuItem});
             this.เกยวกบโปรแกรมToolStripMenuItem.Name = "เกยวกบโปรแกรมToolStripMenuItem";
             this.เกยวกบโปรแกรมToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.เกยวกบโปรแกรมToolStripMenuItem.Text = "About This Program";
             // 
-            // version10BetaToolStripMenuItem
+            // CurrentVersion
             // 
-            this.version10BetaToolStripMenuItem.Enabled = false;
-            this.version10BetaToolStripMenuItem.Name = "version10BetaToolStripMenuItem";
-            this.version10BetaToolStripMenuItem.Size = new System.Drawing.Size(272, 22);
-            this.version10BetaToolStripMenuItem.Text = "Version 1.0 (Beta)";
+            this.CurrentVersion.Enabled = false;
+            this.CurrentVersion.Name = "CurrentVersion";
+            this.CurrentVersion.Size = new System.Drawing.Size(180, 22);
+            this.CurrentVersion.Text = "Version 1.1.6.0";
             // 
             // authorSopanatxToolStripMenuItem
             // 
             this.authorSopanatxToolStripMenuItem.Enabled = false;
             this.authorSopanatxToolStripMenuItem.Name = "authorSopanatxToolStripMenuItem";
-            this.authorSopanatxToolStripMenuItem.Size = new System.Drawing.Size(272, 22);
+            this.authorSopanatxToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.authorSopanatxToolStripMenuItem.Text = "Author: @Sopanatx";
-            // 
-            // licenseAG001400TA00054100041XToolStripMenuItem
-            // 
-            this.licenseAG001400TA00054100041XToolStripMenuItem.Enabled = false;
-            this.licenseAG001400TA00054100041XToolStripMenuItem.Name = "licenseAG001400TA00054100041XToolStripMenuItem";
-            this.licenseAG001400TA00054100041XToolStripMenuItem.Size = new System.Drawing.Size(272, 22);
-            this.licenseAG001400TA00054100041XToolStripMenuItem.Text = "License: AG-001400-TA00054100041-X";
-            // 
-            // expired20220905235959ToolStripMenuItem
-            // 
-            this.expired20220905235959ToolStripMenuItem.Enabled = false;
-            this.expired20220905235959ToolStripMenuItem.Name = "expired20220905235959ToolStripMenuItem";
-            this.expired20220905235959ToolStripMenuItem.Size = new System.Drawing.Size(272, 22);
-            this.expired20220905235959ToolStripMenuItem.Text = "Expired: 2022-09-05 23:59:59";
-            // 
-            // userDEVLICENSEToolStripMenuItem
-            // 
-            this.userDEVLICENSEToolStripMenuItem.Enabled = false;
-            this.userDEVLICENSEToolStripMenuItem.Name = "userDEVLICENSEToolStripMenuItem";
-            this.userDEVLICENSEToolStripMenuItem.Size = new System.Drawing.Size(272, 22);
-            this.userDEVLICENSEToolStripMenuItem.Text = "User: DEV_LICENSE";
             // 
             // dataGridView1
             // 
@@ -236,7 +209,7 @@ namespace Unpacker
             // 
             this.labelRowCount.AutoSize = true;
             this.labelRowCount.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.labelRowCount.Location = new System.Drawing.Point(284, 9);
+            this.labelRowCount.Location = new System.Drawing.Point(575, 9);
             this.labelRowCount.Name = "labelRowCount";
             this.labelRowCount.Size = new System.Drawing.Size(75, 13);
             this.labelRowCount.TabIndex = 10;
@@ -247,11 +220,23 @@ namespace Unpacker
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // currentOpenFileLabel
+            // 
+            this.currentOpenFileLabel.AutoSize = true;
+            this.currentOpenFileLabel.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.currentOpenFileLabel.Location = new System.Drawing.Point(843, 9);
+            this.currentOpenFileLabel.Name = "currentOpenFileLabel";
+            this.currentOpenFileLabel.Size = new System.Drawing.Size(35, 13);
+            this.currentOpenFileLabel.TabIndex = 11;
+            this.currentOpenFileLabel.Text = "label1";
+            this.currentOpenFileLabel.Visible = false;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1209, 564);
+            this.Controls.Add(this.currentOpenFileLabel);
             this.Controls.Add(this.labelRowCount);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.textBox1);
@@ -285,13 +270,11 @@ namespace Unpacker
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.ToolStripMenuItem checkUpdateMenu;
         private System.Windows.Forms.ToolStripMenuItem เกยวกบโปรแกรมToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem version10BetaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem CurrentVersion;
         private System.Windows.Forms.ToolStripMenuItem authorSopanatxToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem licenseAG001400TA00054100041XToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem expired20220905235959ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem userDEVLICENSEToolStripMenuItem;
         private System.Windows.Forms.Label labelRowCount;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Label currentOpenFileLabel;
     }
 }
 
