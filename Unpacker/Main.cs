@@ -144,7 +144,7 @@ namespace Unpacker
                 dataGridView1.Rows.Clear();
                 dataGridView1.Columns.Clear();
 
-                int[] HeaderType = new int[header.ColumnCount];
+               
 
                 for (int i = 0; i < header.ColumnCount; i++)
                 {
@@ -156,12 +156,12 @@ namespace Unpacker
                     while ((int)(ch = reader.ReadChar()) != 10) //stop when byte == 0xA
                         str = str + ch;
                     Console.WriteLine("COL: {0}", str);
-                    HeaderType[i] = reader.ReadInt32(); //Type
+                    header.HeaderType.Add(reader.ReadInt32()); //Type
                     Console.WriteLine(reader.ReadInt32());
                     Console.WriteLine(reader.ReadInt32());
                     Console.WriteLine(reader.ReadInt32());
                     Console.WriteLine(reader.ReadInt32()); //FF FF 7F 7F
-                    Console.WriteLine("RType: {0}", HeaderType[i]);
+                    Console.WriteLine("RType: {0}", header.HeaderType[i]);
 
                     //READ Column name
                     string ColumnName = "";
@@ -169,7 +169,7 @@ namespace Unpacker
                     while ((int)(ch1 = reader.ReadChar()) != 10) ColumnName = ColumnName + ch1;
 
 
-                    dataGridView1.Columns.Add(str, "[ " + str + " ] " + ColumnName);
+                    dataGridView1.Columns.Add(str, "[ " + str + " ] " + ColumnName + " --> " + header.HeaderType[i]);
                 }
 
 
@@ -179,11 +179,11 @@ namespace Unpacker
                     dataGridView1.Rows.Add();
                     for (int k = 0; k < header.ColumnCount; k++)
                     {
-                        if (HeaderType[k] == 0)
+                        if (header.HeaderType[k] == 0)
                         {
                             dataGridView1[k, j].Value = reader.ReadInt32().ToString();
                         }
-                        else if (HeaderType[k] == 2)
+                        else if (header.HeaderType[k] == 2)
                         {
                             string stringname = "";
                             char stringch;
@@ -203,6 +203,13 @@ namespace Unpacker
             {
                 MessageBox.Show(ex.ToString(), "การอ่านไฟล์ล้มเหลว"); ;
             }
+        }
+
+
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            Console.WriteLine(e);
+
         }
 
 

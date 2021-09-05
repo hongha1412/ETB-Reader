@@ -8,6 +8,7 @@ namespace Unpacker.Utils
         public int Unknow2;
         public int ColumnCount;
         public List<string[]> HeaderColumn = new List<string[]>();
+        public List<int> HeaderType = new List<int>();
     }
 
 }
