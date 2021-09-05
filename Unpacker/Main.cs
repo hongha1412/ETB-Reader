@@ -1,6 +1,7 @@
 ﻿using AutoUpdaterDotNET;
 using System;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using Unpacker.Utils;
@@ -11,12 +12,9 @@ namespace Unpacker
     {
         public Main()
         {
-            AutoUpdater.Start("https://cdn.pleum.in.th/ETBWorld/AutoUpdater.xml");
-            AutoUpdater.Synchronous = true;
-            AutoUpdater.Mandatory = true;
-            AutoUpdater.UpdateMode = Mode.Forced;
             InitializeComponent();
-            
+
+
         }
         public byte[] publicKey;
 
@@ -28,6 +26,11 @@ namespace Unpacker
         private void Form1_Load(object sender, EventArgs e)
         {
 
+            AutoUpdater.Start("https://cdn.pleum.in.th/ETBWorld/AutoUpdater.xml");
+            AutoUpdater.Synchronous = true;
+            AutoUpdater.Mandatory = true;
+            AutoUpdater.UpdateMode = Mode.Forced;
+            CurrentVersion.Text = "Current Version : " + Assembly.GetEntryAssembly().GetName().Version;
             System.Threading.Thread.Sleep(700);
             string path = @"FCTemp";
             if (File.Exists(path))
@@ -46,7 +49,6 @@ namespace Unpacker
 
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-
 
                 string fullpath = openFileDialog1.FileName;
                 string directoryPath = Path.GetDirectoryName(fullpath);
@@ -76,7 +78,20 @@ namespace Unpacker
                         int len = unpack.Length;
 
                         //Decompress file with LZF
-                        byte[] decompress = LZF.Decompress(unpack, len);
+                        //  byte[] decompress = LZF.Decompress(unpack, len);
+                        byte[] decompress;
+                        switch (filename)
+                        {
+                            case "mon_data.etb":
+                                decompress = CLZF2.Decompress(unpack, len);
+                                break;
+                            case "hidden_cash.etb":
+                                decompress = LZF.Decompress(unpack, len);
+                                break;
+                            default:
+                                decompress = LZF.Decompress(unpack, len);
+                                break;
+                        }
                         string tempfilename = directoryPath + @"\" + "_Temp_" + filename;
                         FileStream writeStream;
                         try
@@ -101,12 +116,8 @@ namespace Unpacker
                 }
                 catch
                 {
-
-
                     MessageBox.Show("ไม่สามารถอ่านไฟล์ได้", "ERROR", MessageBoxButtons.OK);
                 }
-
-
             }
         }
 
@@ -194,7 +205,7 @@ namespace Unpacker
             }
         }
 
-        
+
     }
 
 }

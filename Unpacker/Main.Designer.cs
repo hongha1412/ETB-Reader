@@ -166,20 +166,21 @@ namespace Unpacker
             // 
             this.CurrentVersion.Enabled = false;
             this.CurrentVersion.Name = "CurrentVersion";
-            this.CurrentVersion.Size = new System.Drawing.Size(180, 22);
+            this.CurrentVersion.Size = new System.Drawing.Size(177, 22);
             this.CurrentVersion.Text = "Version 1.1.6.0";
             // 
             // authorSopanatxToolStripMenuItem
             // 
             this.authorSopanatxToolStripMenuItem.Enabled = false;
             this.authorSopanatxToolStripMenuItem.Name = "authorSopanatxToolStripMenuItem";
-            this.authorSopanatxToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.authorSopanatxToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.authorSopanatxToolStripMenuItem.Text = "Author: @Sopanatx";
             // 
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -193,6 +194,7 @@ namespace Unpacker
             this.dataGridView1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dataGridView1.Location = new System.Drawing.Point(0, 27);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -202,7 +204,6 @@ namespace Unpacker
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.Size = new System.Drawing.Size(1209, 537);
-            this.dataGridView1.StandardTab = true;
             this.dataGridView1.TabIndex = 9;
             // 
             // labelRowCount
