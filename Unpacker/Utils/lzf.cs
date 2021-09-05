@@ -11,16 +11,16 @@ namespace Unpacker.Utils
             int k = 0; // v13
             int l = 0; // v14
             int v4 = 0;
-            byte[] v5 = new byte[0x30000];
+            byte[] v5 = new byte[0x100000];
             Array.Copy(Data, v5, Data.Length);
-            byte[] v7 = new byte[0x30000];
+            byte[] v7 = new byte[0x100000];
             int v8 = 0;
             int v9 = 0;
             int v10 = 0;
             int v11 = 0;
             int v12 = 0;
             label:
-            if (j >= 0x30000 || i >= length)
+            if (j >= 0x100000 || i >= length)
             {
                 goto label2;
             }

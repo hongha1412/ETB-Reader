@@ -69,7 +69,7 @@ namespace Unpacker
                         int Header1 = reader.ReadInt32();
                         long key = reader.ReadInt64();
                         int Header2 = reader.ReadInt32();
-                        byte[] data = reader.ReadBytes((int)fs.Length - 4);
+                        byte[] data = reader.ReadBytes((int)fs.Length - 16);
 
 
                         ConvertPublicKey(key);
@@ -86,6 +86,12 @@ namespace Unpacker
                                 decompress = CLZF2.Decompress(unpack, len);
                                 break;
                             case "hidden_cash.etb":
+                                decompress = LZF.Decompress(unpack, len);
+                                break;
+                            case "listquest.etb":
+                                decompress = LZF.Decompress(unpack, len);
+                                break;
+                            case "trade_table.etb":
                                 decompress = LZF.Decompress(unpack, len);
                                 break;
                             default:
@@ -144,8 +150,8 @@ namespace Unpacker
                 dataGridView1.Rows.Clear();
                 dataGridView1.Columns.Clear();
 
-               
 
+                int[] HeaderType = new int[header.ColumnCount];
                 for (int i = 0; i < header.ColumnCount; i++)
                 {
 
@@ -156,12 +162,12 @@ namespace Unpacker
                     while ((int)(ch = reader.ReadChar()) != 10) //stop when byte == 0xA
                         str = str + ch;
                     Console.WriteLine("COL: {0}", str);
-                    header.HeaderType.Add(reader.ReadInt32()); //Type
+                    HeaderType[i] = reader.ReadInt32(); //Type
                     Console.WriteLine(reader.ReadInt32());
                     Console.WriteLine(reader.ReadInt32());
                     Console.WriteLine(reader.ReadInt32());
                     Console.WriteLine(reader.ReadInt32()); //FF FF 7F 7F
-                    Console.WriteLine("RType: {0}", header.HeaderType[i]);
+                    Console.WriteLine("RType: {0}", HeaderType[i]);
 
                     //READ Column name
                     string ColumnName = "";
@@ -169,7 +175,7 @@ namespace Unpacker
                     while ((int)(ch1 = reader.ReadChar()) != 10) ColumnName = ColumnName + ch1;
 
 
-                    dataGridView1.Columns.Add(str, "[ " + str + " ] " + ColumnName + " --> " + header.HeaderType[i]);
+                    dataGridView1.Columns.Add(str, "[ " + str + " ] " + ColumnName + " --> " + HeaderType[i]);
                 }
 
 
@@ -179,12 +185,13 @@ namespace Unpacker
                     dataGridView1.Rows.Add();
                     for (int k = 0; k < header.ColumnCount; k++)
                     {
-                        if (header.HeaderType[k] == 0)
+                        if (HeaderType[k] == 0)
                         {
                             dataGridView1[k, j].Value = reader.ReadInt32().ToString();
                         }
-                        else if (header.HeaderType[k] == 2)
+                        else if (HeaderType[k] == 2)
                         {
+                          //  Console.log()
                             string stringname = "";
                             char stringch;
                             while ((int)(stringch = reader.ReadChar()) != 10)
@@ -205,14 +212,36 @@ namespace Unpacker
             }
         }
 
-
-        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void rEADToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Console.WriteLine(e);
-
+            Console.WriteLine(dataGridView1[1, 1]);
         }
 
+        private void exportToTextFileMenu_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.Filter = "Text File|*.txt";
+            var result = dialog.ShowDialog();
+            if (result != DialogResult.OK)
+                return;
 
+            // setup for export
+            dataGridView1.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
+            dataGridView1.SelectAll();
+            // hiding row headers to avoid extra \t in exported text
+            var rowHeaders = dataGridView1.RowHeadersVisible;
+            dataGridView1.RowHeadersVisible = false;
+
+            // ! creating text from grid values
+            string content = dataGridView1.GetClipboardContent().GetText();
+
+            // restoring grid state
+            dataGridView1.ClearSelection();
+            dataGridView1.RowHeadersVisible = rowHeaders;
+
+            System.IO.File.WriteAllText(dialog.FileName, content);
+            MessageBox.Show(@" บันทีกข้อมูลเป็นไฟล์ .txt สำเร็จ");
+        }
     }
 
 }
