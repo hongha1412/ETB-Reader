@@ -19,8 +19,8 @@ namespace Unpacker.Utils
                 {
                     int pkey = ((privateKey[i % 8] ^ publicKey[i % 8]) ^ data[i]);
                     int rsk = pkey ^ ((rkey >> 8) & 0xFF);
-                    int v3 = rsk ^ lkey;
-                    result[i] = (byte)v3;
+                    int tfinal = rsk ^ lkey;
+                    result[i] = (byte)tfinal;
                     rkey *= 2171;
                 }
             }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Unpacker.Properties {
+namespace JvCryptionTool.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Unpacker.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Unpacker.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("JvCryptionTool.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,87 +57,6 @@ namespace Unpacker.Properties {
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
-        /// </summary>
-        internal static System.IO.UnmanagedMemoryStream Effect1 {
-            get {
-                return ResourceManager.GetStream("Effect1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
-        /// </summary>
-        internal static System.IO.UnmanagedMemoryStream Effect2 {
-            get {
-                return ResourceManager.GetStream("Effect2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
-        /// </summary>
-        internal static System.IO.UnmanagedMemoryStream Effect3 {
-            get {
-                return ResourceManager.GetStream("Effect3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap QIcon {
-            get {
-                object obj = ResourceManager.GetObject("QIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to TCP_Rcv-CMSSCV[8.31/7:2:53]
-        ///TCP_Rcv = 20[40] 14
-        ///TCP_Rcv = 81[24] 51
-        ///TCP_Rcv = 351[20] 15F
-        ///TCP_Rcv = 352[36]
-        ///TCP_Rcv = 613[128]
-        ///TCP_Rcv = 624[56]
-        ///TCP_Rcv = 80[200]
-        ///TCP_Rcv = 611[40]
-        ///TCP_Rcv = 583[16]
-        ///TCP_Rcv = 583[16] 
-        ///TCP_Rcv = 580[44] 244
-        ///TCP_Rcv = 579[148]
-        ///TCP_Rcv = 579[148]
-        ///TCP_Rcv = 579[148]
-        ///TCP_Rcv = 579[148]
-        ///TCP_Rcv = 579[148]
-        ///TCP_Rcv = 579[148]
-        ///TCP_Rcv = 579[148]
-        ///TCP_Rcv = 579[148]
-        ///TCP_Rcv = 579[148]
-        ///TCP_Rcv = 579[148]
-        ///TCP_Rcv = 579[148]
-        ///TCP_Rcv = 579[148]
-        ///TCP_Rcv = 578[28]
-        ///T [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string TCP_Rcv_ {
-            get {
-                return ResourceManager.GetString("TCP_Rcv_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap TH_Lang1 {
-            get {
-                object obj = ResourceManager.GetObject("TH_Lang1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }
