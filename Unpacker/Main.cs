@@ -121,7 +121,7 @@ namespace Unpacker
             }
         }
 
-
+        EtbFileHeader header = new EtbFileHeader();
         public void readData(string filename)
         {
             try
@@ -129,14 +129,14 @@ namespace Unpacker
                 string path = filename;
                 FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
                 BinaryReader reader = new BinaryReader(fs, Encoding.GetEncoding("UTF-16LE"));
-                EtbFileHeader header = new EtbFileHeader
-                {
-                    RowCount = reader.ReadInt32(),
-                    Unknow1 = reader.ReadInt32(),
-                    Unknow2 = reader.ReadInt32(),
-                    ColumnCount = reader.ReadInt32()
-                };
-                labelRowCount.Text = "จำนวนแถวคอลัมน์ : " + header.ColumnCount.ToString() + " จำนวนแถวข้อมูล : " + header.RowCount.ToString();
+
+
+                header.RowCount = reader.ReadInt32();
+                header.Unknow1 = reader.ReadInt32();
+                header.Unknow2 = reader.ReadInt32();
+                header.ColumnCount = reader.ReadInt32();
+
+                labelRowCount.Text = "Column Headers Count : " + header.ColumnCount.ToString() + " | " + " Data Row Count : " + header.RowCount.ToString();
                 labelRowCount.Visible = true;
                 Console.WriteLine("Row Count: {0} Unknow : {1} Unknow : {2} Column Count : {3}", header.RowCount, header.Unknow1, header.Unknow2, header.ColumnCount);
 
