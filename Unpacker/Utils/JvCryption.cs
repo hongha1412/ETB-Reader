@@ -1,5 +1,7 @@
 ﻿
 
+using Serilog;
+
 namespace Unpacker.Utils
 {
     public static class JvCryption
@@ -50,6 +52,24 @@ namespace Unpacker.Utils
                     rkey *= 2171;
                 }
             }
+            return result;
+        }
+        public static byte[] JvDecryptPacket(byte[] buff,byte[] publicKey)
+        {
+            int len = (buff[4] + (buff[5] << 8)), v10 = 2157, lena = (157 * len) & 0xFF;
+            byte[] result = new byte[len];
+            bool v8v9 = (len == 0 | len < 0);
+
+            if (!v8v9)
+            {
+                for (int i = 0; i < len; i++)
+                {
+                    result[i] = (byte)((buff[12 + i] ^ lena) ^ (privateKey[i % 8] ^ publicKey[i % 8]) ^
+                                        ((v10 >> 8) & 0xFF));
+                    v10 *= 2171;
+                }
+            }
+            result = LZF.Decompress(result, len);
             return result;
         }
 

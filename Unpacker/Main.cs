@@ -19,6 +19,8 @@ namespace Unpacker
 
         }
         public byte[] publicKey;
+        private byte[] packetPubKey = { 0x05, 0xBD, 0x57, 0x65, 0xBA, 0xDA, 0xF7, 0xE9 };
+
 
         public void ConvertPublicKey(long key)
         {
@@ -271,6 +273,55 @@ namespace Unpacker
                         writeBinay.Write(unpack);
                         writeBinay.Close();
                         MessageBox.Show("Saved FCTemp", "Info");
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString());
+                    }
+                    fs.Close();
+
+                }
+                catch
+                {
+                    MessageBox.Show("Failed to Decrypted Item File", "Error");
+                }
+            }
+        }
+
+        private void readPacketEncryptionMenu_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            {
+                Filter = " Packet File |*.dat",
+                Title = "Select a Packet File"
+            };
+
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string fullpath = openFileDialog1.FileName;
+                string directoryPath = Path.GetDirectoryName(fullpath);
+                string filename = System.IO.Path.GetFileName(fullpath);
+                Console.WriteLine("full Path: {0}", fullpath);
+                Console.WriteLine("Path: {0}", directoryPath);
+                Console.WriteLine("Filename : {0}", filename);
+
+                try
+                {
+                    string path = fullpath;
+                    FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
+                    BinaryReader reader = new BinaryReader(fs);
+                    byte[] data = reader.ReadBytes((int)fs.Length);
+                    byte[] unpack = JvCryption.JvDecryptPacket(data, packetPubKey);
+
+                    try
+                    {
+                        FileStream writeStream;
+                        writeStream = new FileStream(@"Packet_Dump.dat", FileMode.Create);
+                        BinaryWriter writeBinay = new BinaryWriter(writeStream);
+                        writeBinay.Write(unpack);
+                        writeBinay.Close();
+                        MessageBox.Show("Packet_Dump", "Info");
 
                     }
                     catch (Exception ex)

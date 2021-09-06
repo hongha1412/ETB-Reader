@@ -52,6 +52,7 @@ namespace Unpacker
             this.labelRowCount = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.currentOpenFileLabel = new System.Windows.Forms.Label();
+            this.readPacketEncryptionMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -88,7 +89,8 @@ namespace Unpacker
             this.openFileMenu,
             this.บนทกToolStripMenuItem,
             this.สงออกToolStripMenuItem,
-            this.openItemFileMenu});
+            this.openItemFileMenu,
+            this.readPacketEncryptionMenu});
             this.ไฟลToolStripMenuItem.Name = "ไฟลToolStripMenuItem";
             this.ไฟลToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.ไฟลToolStripMenuItem.Text = "File";
@@ -96,14 +98,14 @@ namespace Unpacker
             // openFileMenu
             // 
             this.openFileMenu.Name = "openFileMenu";
-            this.openFileMenu.Size = new System.Drawing.Size(151, 22);
+            this.openFileMenu.Size = new System.Drawing.Size(198, 22);
             this.openFileMenu.Text = "Open";
             this.openFileMenu.Click += new System.EventHandler(this.openFileMenu_Click);
             // 
             // บนทกToolStripMenuItem
             // 
             this.บนทกToolStripMenuItem.Name = "บนทกToolStripMenuItem";
-            this.บนทกToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.บนทกToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
             this.บนทกToolStripMenuItem.Text = "Save";
             // 
             // สงออกToolStripMenuItem
@@ -113,7 +115,7 @@ namespace Unpacker
             this.exportToTextFileMenu,
             this.excelFileToolStripMenuItem});
             this.สงออกToolStripMenuItem.Name = "สงออกToolStripMenuItem";
-            this.สงออกToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.สงออกToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
             this.สงออกToolStripMenuItem.Text = "Export";
             // 
             // binaryFileToolStripMenuItem
@@ -138,7 +140,7 @@ namespace Unpacker
             // openItemFileMenu
             // 
             this.openItemFileMenu.Name = "openItemFileMenu";
-            this.openItemFileMenu.Size = new System.Drawing.Size(151, 22);
+            this.openItemFileMenu.Size = new System.Drawing.Size(198, 22);
             this.openItemFileMenu.Text = "Open Item File";
             this.openItemFileMenu.Click += new System.EventHandler(this.openItemFileMenu_Click);
             // 
@@ -247,6 +249,13 @@ namespace Unpacker
             this.currentOpenFileLabel.Text = "label1";
             this.currentOpenFileLabel.Visible = false;
             // 
+            // readPacketEncryptionMenu
+            // 
+            this.readPacketEncryptionMenu.Name = "readPacketEncryptionMenu";
+            this.readPacketEncryptionMenu.Size = new System.Drawing.Size(198, 22);
+            this.readPacketEncryptionMenu.Text = "Read Packet Encryption";
+            this.readPacketEncryptionMenu.Click += new System.EventHandler(this.readPacketEncryptionMenu_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -292,6 +301,7 @@ namespace Unpacker
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Label currentOpenFileLabel;
         private System.Windows.Forms.ToolStripMenuItem openItemFileMenu;
+        private System.Windows.Forms.ToolStripMenuItem readPacketEncryptionMenu;
     }
 }
 
