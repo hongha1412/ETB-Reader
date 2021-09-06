@@ -42,6 +42,7 @@ namespace Unpacker
             this.exportToTextFileMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.excelFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openItemFileMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.readPacketEncryptionMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.แกไขToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.เกยวกบToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkUpdateMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,7 +53,6 @@ namespace Unpacker
             this.labelRowCount = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.currentOpenFileLabel = new System.Windows.Forms.Label();
-            this.readPacketEncryptionMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -143,6 +143,13 @@ namespace Unpacker
             this.openItemFileMenu.Size = new System.Drawing.Size(198, 22);
             this.openItemFileMenu.Text = "Open Item File";
             this.openItemFileMenu.Click += new System.EventHandler(this.openItemFileMenu_Click);
+            // 
+            // readPacketEncryptionMenu
+            // 
+            this.readPacketEncryptionMenu.Name = "readPacketEncryptionMenu";
+            this.readPacketEncryptionMenu.Size = new System.Drawing.Size(198, 22);
+            this.readPacketEncryptionMenu.Text = "Read Packet Encryption";
+            this.readPacketEncryptionMenu.Click += new System.EventHandler(this.readPacketEncryptionMenu_Click);
             // 
             // แกไขToolStripMenuItem
             // 
@@ -248,13 +255,6 @@ namespace Unpacker
             this.currentOpenFileLabel.TabIndex = 11;
             this.currentOpenFileLabel.Text = "label1";
             this.currentOpenFileLabel.Visible = false;
-            // 
-            // readPacketEncryptionMenu
-            // 
-            this.readPacketEncryptionMenu.Name = "readPacketEncryptionMenu";
-            this.readPacketEncryptionMenu.Size = new System.Drawing.Size(198, 22);
-            this.readPacketEncryptionMenu.Text = "Read Packet Encryption";
-            this.readPacketEncryptionMenu.Click += new System.EventHandler(this.readPacketEncryptionMenu_Click);
             // 
             // Main
             // 

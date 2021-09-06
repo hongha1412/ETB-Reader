@@ -19,8 +19,6 @@ namespace Unpacker
 
         }
         public byte[] publicKey;
-        private byte[] packetPubKey = { 0x05, 0xBD, 0x57, 0x65, 0xBA, 0xDA, 0xF7, 0xE9 };
-
 
         public void ConvertPublicKey(long key)
         {
@@ -40,6 +38,16 @@ namespace Unpacker
             if (File.Exists(path))
             {
                 File.Delete(path);
+            }
+
+            if (File.Exists(@"Packet_Dump.dat"))
+            {
+                File.Delete(@"Packet_Dump.dat");
+            }
+
+            if (File.Exists(@"LZF_Dump.dat"))
+            {
+                File.Delete(@"LZF_Dump.dat");
             }
         }
 
@@ -311,8 +319,9 @@ namespace Unpacker
                     string path = fullpath;
                     FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
                     BinaryReader reader = new BinaryReader(fs);
+                    ConvertPublicKey(65856186948762885); //SessionID
                     byte[] data = reader.ReadBytes((int)fs.Length);
-                    byte[] unpack = JvCryption.JvDecryptPacket(data, packetPubKey);
+                    byte[] unpack = JvCryption.JvDecryptPacket(data, publicKey);
 
                     try
                     {
@@ -333,10 +342,13 @@ namespace Unpacker
                 }
                 catch
                 {
-                    MessageBox.Show("Failed to Decrypted Item File", "Error");
+                    MessageBox.Show("Failed to Decrypted Packet File", "Error");
                 }
             }
         }
+
+
     }
+
 
 }
