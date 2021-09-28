@@ -319,7 +319,7 @@ namespace Unpacker
                     string path = fullpath;
                     FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
                     BinaryReader reader = new BinaryReader(fs);
-                    ConvertPublicKey(65856186948762885); //SessionID
+                    ConvertPublicKey(6284047757652776692); //SessionID
                     byte[] data = reader.ReadBytes((int)fs.Length);
                     byte[] unpack = JvCryption.JvDecryptPacket(data, publicKey);
 
@@ -347,7 +347,177 @@ namespace Unpacker
             }
         }
 
+        private void lZFUnpackToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            {
+                Filter = " Packet File |*.dat",
+                Title = "Select a Packet File"
+            };
 
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string fullpath = openFileDialog1.FileName;
+                string directoryPath = Path.GetDirectoryName(fullpath);
+                string filename = System.IO.Path.GetFileName(fullpath);
+                Console.WriteLine("full Path: {0}", fullpath);
+                Console.WriteLine("Path: {0}", directoryPath);
+                Console.WriteLine("Filename : {0}", filename);
+
+                try
+                {
+                    string path = fullpath;
+                    FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
+                    BinaryReader reader = new BinaryReader(fs);
+                    ushort lzf_decompress_length = reader.ReadUInt16();
+                    short lzf_unk1 = reader.ReadInt16();// V4  129
+                    short lzf_unk2 = reader.ReadInt16(); // LZF Packet Length Start with 08
+                    short lzf_unk3 = reader.ReadInt16();
+                    int lzf_unk4 = reader.ReadInt32();
+                    byte[] data = reader.ReadBytes((int)fs.Length - 12);
+                    byte[] newdata = LZF.Decompress(data, data.Length);
+
+
+                    if (newdata.Length > 1 && newdata.Length != lzf_decompress_length)
+                    {
+                        MessageBox.Show("Failed! Incorrect Packet Length", "Error");
+                    }
+                    else if (lzf_unk1 != 129)
+                    {
+                        MessageBox.Show("Failed! Invalid LZF Signature", "Error");
+                    }
+                    else
+                    {
+                        try
+                        {
+                            FileStream writeStream;
+                            writeStream = new FileStream(@"newdata.dat", FileMode.Create);
+                            BinaryWriter writeBinay = new BinaryWriter(writeStream);
+                            writeBinay.Write(newdata);
+                            writeBinay.Close();
+                            MessageBox.Show("Packet Decompressed!", "Info");
+
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.ToString());
+                        }
+                    }
+
+                    fs.Close();
+                }
+                catch
+                {
+
+                }
+            }
+
+        }
+
+        private void lZFPackToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            {
+                Filter = " Packet File |*.dat",
+                Title = "Select a Packet File"
+            };
+
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string fullpath = openFileDialog1.FileName;
+                string directoryPath = Path.GetDirectoryName(fullpath);
+                string filename = System.IO.Path.GetFileName(fullpath);
+                Console.WriteLine("full Path: {0}", fullpath);
+                Console.WriteLine("Path: {0}", directoryPath);
+                Console.WriteLine("Filename : {0}", filename);
+
+                try
+                {
+                    string path = fullpath;
+                    FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
+                    BinaryReader reader = new BinaryReader(fs);
+                    byte[] data = reader.ReadBytes((int)fs.Length);
+                    byte[] newdata = CLZF2.Compress(data);
+
+                    try
+                    {
+                        FileStream writeStream;
+                        writeStream = new FileStream(@"compressPacket.dat", FileMode.Create);
+                        BinaryWriter writeBinay = new BinaryWriter(writeStream);
+                        writeBinay.Write(newdata);
+                        writeBinay.Close();
+                        MessageBox.Show("Packet Compressed!", "Info");
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString());
+                    }
+                    fs.Close();
+                }
+                catch
+                {
+
+                }
+            }
+
+
+
+        }
+
+        private void lZFMSGUnpackToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            {
+                Filter = " Packet File |*.dat",
+                Title = "Select a Packet File"
+            };
+
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string fullpath = openFileDialog1.FileName;
+                string directoryPath = Path.GetDirectoryName(fullpath);
+                string filename = System.IO.Path.GetFileName(fullpath);
+                Console.WriteLine("full Path: {0}", fullpath);
+                Console.WriteLine("Path: {0}", directoryPath);
+                Console.WriteLine("Filename : {0}", filename);
+
+                try
+                {
+                    string path = fullpath;
+                    FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
+                    BinaryReader reader = new BinaryReader(fs);
+
+                    byte[] data = reader.ReadBytes((int)fs.Length);
+                    byte[] newdata = LZF.Decompress(data, data.Length);
+
+
+
+                    try
+                    {
+                        FileStream writeStream;
+                        writeStream = new FileStream(@"newdata.dat", FileMode.Create);
+                        BinaryWriter writeBinay = new BinaryWriter(writeStream);
+                        writeBinay.Write(newdata);
+                        writeBinay.Close();
+                        MessageBox.Show("Packet Decompressed!", "Info");
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString());
+                    }
+
+
+                    fs.Close();
+                }
+                catch
+                {
+
+                }
+            }
+        }
     }
 
 

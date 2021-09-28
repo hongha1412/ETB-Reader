@@ -19,7 +19,7 @@ namespace Unpacker.Utils
             int v10 = 0;
             int v11 = 0;
             int v12 = 0;
-            label:
+        label:
             if (j >= 0x100000 || i >= length)
             {
                 goto label2;
@@ -63,10 +63,18 @@ namespace Unpacker.Utils
                 goto label;
             }
 
-            label2:
+        label2:
             byte[] ret = new byte[j];
             Array.Copy(v7, ret, ret.Length);
             return ret;
+        }
+
+
+        public static byte[] Compress(byte[] data)
+        {
+            byte[] result = { };
+
+            return result;
         }
     }
 }

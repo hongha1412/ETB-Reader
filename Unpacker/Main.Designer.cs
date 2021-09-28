@@ -43,6 +43,8 @@ namespace Unpacker
             this.excelFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openItemFileMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.readPacketEncryptionMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.lZFUnpackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lZFPackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.แกไขToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.เกยวกบToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkUpdateMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,6 +55,7 @@ namespace Unpacker
             this.labelRowCount = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.currentOpenFileLabel = new System.Windows.Forms.Label();
+            this.lZFMSGUnpackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -60,7 +63,7 @@ namespace Unpacker
             // textBox1
             // 
             this.textBox1.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.textBox1.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.ForeColor = System.Drawing.Color.Yellow;
             this.textBox1.Location = new System.Drawing.Point(12, 508);
             this.textBox1.Multiline = true;
@@ -90,7 +93,10 @@ namespace Unpacker
             this.บนทกToolStripMenuItem,
             this.สงออกToolStripMenuItem,
             this.openItemFileMenu,
-            this.readPacketEncryptionMenu});
+            this.readPacketEncryptionMenu,
+            this.lZFUnpackToolStripMenuItem,
+            this.lZFPackToolStripMenuItem,
+            this.lZFMSGUnpackToolStripMenuItem});
             this.ไฟลToolStripMenuItem.Name = "ไฟลToolStripMenuItem";
             this.ไฟลToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.ไฟลToolStripMenuItem.Text = "File";
@@ -150,6 +156,20 @@ namespace Unpacker
             this.readPacketEncryptionMenu.Size = new System.Drawing.Size(198, 22);
             this.readPacketEncryptionMenu.Text = "Read Packet Encryption";
             this.readPacketEncryptionMenu.Click += new System.EventHandler(this.readPacketEncryptionMenu_Click);
+            // 
+            // lZFUnpackToolStripMenuItem
+            // 
+            this.lZFUnpackToolStripMenuItem.Name = "lZFUnpackToolStripMenuItem";
+            this.lZFUnpackToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.lZFUnpackToolStripMenuItem.Text = "LZF Unpack";
+            this.lZFUnpackToolStripMenuItem.Click += new System.EventHandler(this.lZFUnpackToolStripMenuItem_Click);
+            // 
+            // lZFPackToolStripMenuItem
+            // 
+            this.lZFPackToolStripMenuItem.Name = "lZFPackToolStripMenuItem";
+            this.lZFPackToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.lZFPackToolStripMenuItem.Text = "LZF Pack";
+            this.lZFPackToolStripMenuItem.Click += new System.EventHandler(this.lZFPackToolStripMenuItem_Click);
             // 
             // แกไขToolStripMenuItem
             // 
@@ -256,6 +276,13 @@ namespace Unpacker
             this.currentOpenFileLabel.Text = "label1";
             this.currentOpenFileLabel.Visible = false;
             // 
+            // lZFMSGUnpackToolStripMenuItem
+            // 
+            this.lZFMSGUnpackToolStripMenuItem.Name = "lZFMSGUnpackToolStripMenuItem";
+            this.lZFMSGUnpackToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.lZFMSGUnpackToolStripMenuItem.Text = "LZF MSG Unpack";
+            this.lZFMSGUnpackToolStripMenuItem.Click += new System.EventHandler(this.lZFMSGUnpackToolStripMenuItem_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -302,6 +329,9 @@ namespace Unpacker
         private System.Windows.Forms.Label currentOpenFileLabel;
         private System.Windows.Forms.ToolStripMenuItem openItemFileMenu;
         private System.Windows.Forms.ToolStripMenuItem readPacketEncryptionMenu;
+        private System.Windows.Forms.ToolStripMenuItem lZFUnpackToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem lZFPackToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem lZFMSGUnpackToolStripMenuItem;
     }
 }
 
