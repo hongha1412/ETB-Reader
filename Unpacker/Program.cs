@@ -12,7 +12,7 @@ namespace Unpacker
         [STAThread]
         private static void Main()
         {
-            //Application.EnableVisualStyles();
+            Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(true);
             Application.Run(new Main());
         }

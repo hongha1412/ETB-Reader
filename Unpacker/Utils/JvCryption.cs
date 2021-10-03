@@ -8,6 +8,46 @@
 
         public static byte[] pubkey = { 0x57, 0x35, 0x6C, 0x24, 0x2A, 0x7B, 0xD6, 0xF4 };
 
+
+
+        public static byte[] Encrypt(byte[] buff, byte[] publicKey)
+        {
+            int len = buff.Length;
+            byte[] result = new byte[len];
+            bool v8v9 = (len == 0 | len < 0);
+            int v10 = 2157;
+            int lena = (157 * len) & 0xFF;
+
+            if (!v8v9)
+            {
+                for (int i = 0; i < len; i++)
+                {
+                    // mov bl, privatekey[i]
+                    // xor bl, buff[i]
+                    int v1 = ((privateKey[i % 8] ^ publicKey[i % 8]) ^ buff[i]);
+                    // mov eax, edx
+                    // mov eax, 8
+                    // xor bl, al
+                    int v2 = v1 ^ ((v10 >> 8) & 0xFF);
+                    // mov al, lena
+                    // xor bl, al
+                    int v3 = v2 ^ lena;
+                    // inc esi <== for i++
+                    // mov edi, bl
+                    result[i] = (byte)v3;
+                    // lea eax, [edi+edi*8]
+                    // lea edi, [edx+eax*8]
+                    // lea eax, [edi+edi*4]
+
+                    // lea edx, [edx+eax*2]
+                    v10 *= 2171;
+                }
+            }
+
+            return result;
+        }
+
+
         public static byte[] JvDcrpytion(byte[] data, byte[] publicKey)
         {
             int len = data.Length;
@@ -71,7 +111,24 @@
             return result;
         }
 
+        public static byte[] JvEncryptPacket(byte[] buff, byte[] publicKey)
+        {
+            int len = (buff[4] + (buff[5] << 8)), v10 = 2157, lena = (157 * len) & 0xFF;
+            byte[] result = new byte[len];
+            bool v8v9 = (len == 0 | len < 0);
 
+            if (!v8v9)
+            {
+                for (int i = 0; i < len; i++)
+                {
+                    result[i] = (byte)((buff[12 + i] ^ lena) ^ (privateKey[i % 8] ^ pubkey[i % 8]) ^
+                                        ((v10 >> 8) & 0xFF));
+                    v10 *= 2171;
+                }
+            }
+            // result = LZF.Decompress(result, len);
+            return result;
+        }
 
     }
 }

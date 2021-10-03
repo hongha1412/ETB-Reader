@@ -1,4 +1,5 @@
 ﻿using AutoUpdaterDotNET;
+using DamienG.Security.Cryptography;
 using System;
 using System.IO;
 using System.Reflection;
@@ -319,7 +320,7 @@ namespace Unpacker
                     string path = fullpath;
                     FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
                     BinaryReader reader = new BinaryReader(fs);
-                    ConvertPublicKey(6284047757652776692); //SessionID
+                    ConvertPublicKey(79745553402863482);
                     byte[] data = reader.ReadBytes((int)fs.Length);
                     byte[] unpack = JvCryption.JvDecryptPacket(data, publicKey);
 
@@ -380,10 +381,12 @@ namespace Unpacker
 
                     if (newdata.Length > 1 && newdata.Length != lzf_decompress_length)
                     {
-                        MessageBox.Show("Failed! Incorrect Packet Length", "Error");
+                        //  MessageBox.Show("Failed! Incorrect Packet Length", "Error");
+                        MessageBox.Show("Failed! Incorrect Packet Length \nNewData Length : " + newdata.Length.ToString() + "\n Header Length : " + lzf_decompress_length.ToString(), "Info");
                     }
                     else if (lzf_unk1 != 129)
                     {
+
                         MessageBox.Show("Failed! Invalid LZF Signature", "Error");
                     }
                     else
@@ -395,7 +398,7 @@ namespace Unpacker
                             BinaryWriter writeBinay = new BinaryWriter(writeStream);
                             writeBinay.Write(newdata);
                             writeBinay.Close();
-                            MessageBox.Show("Packet Decompressed!", "Info");
+                            MessageBox.Show("Packet Decompressed! \nNewData Length : " + newdata.Length.ToString() + "\n Header Length : " + lzf_decompress_length.ToString(), "Info");
 
                         }
                         catch (Exception ex)
@@ -440,25 +443,61 @@ namespace Unpacker
                     byte[] data = reader.ReadBytes((int)fs.Length);
                     byte[] newdata = CLZF2.Compress(data);
 
-                    try
-                    {
-                        FileStream writeStream;
-                        writeStream = new FileStream(@"compressPacket.dat", FileMode.Create);
-                        BinaryWriter writeBinay = new BinaryWriter(writeStream);
-                        writeBinay.Write(newdata);
-                        writeBinay.Close();
-                        MessageBox.Show("Packet Compressed!", "Info");
 
-                    }
-                    catch (Exception ex)
+
+                    short blank = 0;
+                    Crc32 crc32 = new Crc32();
+                    byte[] crc32Buffer = crc32.ComputeHash(newdata);
+                    var PacketLength = System.BitConverter.GetBytes((short)data.Length);
+                    var PacketCheck = System.BitConverter.GetBytes((short)129);
+                    var LZFLength = BitConverter.GetBytes((short)newdata.Length);
+                    var CRC = BitConverter.GetBytes((int)data.Length + (int)newdata.Length + 129);
+                    byte[] newbuffx1 = new byte[newdata.Length + 12];
+
+                    Buffer.BlockCopy(PacketLength, 0, newbuffx1, 0, 2);
+                    Buffer.BlockCopy(PacketCheck, 0, newbuffx1, 2, 2);
+                    Buffer.BlockCopy(LZFLength, 0, newbuffx1, 4, 2);
+                    Buffer.BlockCopy(CRC, 0, newbuffx1, 6, 2);
+                    Buffer.BlockCopy(newdata, 0, newbuffx1, 12, newdata.Length - 12);
+                    if (checkBox1.Checked)
                     {
-                        MessageBox.Show(ex.ToString());
+
+                        try
+                        {
+                            FileStream writeStream;
+                            writeStream = new FileStream(@"Ghost_EncryptPacket.dat", FileMode.Create);
+                            BinaryWriter writeBinay = new BinaryWriter(writeStream);
+                            writeBinay.Write(newbuffx1);
+                            writeBinay.Close();
+                            MessageBox.Show("Packet Encrypted has been saved.", "Info");
+
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.ToString());
+                        }
+                    }
+                    else
+                    {
+                        try
+                        {
+                            FileStream writeStream;
+                            writeStream = new FileStream(@"Ghost_CompressedPacket.dat", FileMode.Create);
+                            BinaryWriter writeBinay = new BinaryWriter(writeStream);
+                            writeBinay.Write(newbuffx1);
+                            writeBinay.Close();
+                            MessageBox.Show("Packet Compressed!", "Info");
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.ToString());
+                        }
                     }
                     fs.Close();
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show(ex.ToString(), "");
                 }
             }
 

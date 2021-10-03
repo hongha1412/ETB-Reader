@@ -45,6 +45,7 @@ namespace Unpacker
             this.readPacketEncryptionMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.lZFUnpackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lZFPackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lZFMSGUnpackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.แกไขToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.เกยวกบToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkUpdateMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,7 +56,7 @@ namespace Unpacker
             this.labelRowCount = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.currentOpenFileLabel = new System.Windows.Forms.Label();
-            this.lZFMSGUnpackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -171,6 +172,13 @@ namespace Unpacker
             this.lZFPackToolStripMenuItem.Text = "LZF Pack";
             this.lZFPackToolStripMenuItem.Click += new System.EventHandler(this.lZFPackToolStripMenuItem_Click);
             // 
+            // lZFMSGUnpackToolStripMenuItem
+            // 
+            this.lZFMSGUnpackToolStripMenuItem.Name = "lZFMSGUnpackToolStripMenuItem";
+            this.lZFMSGUnpackToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.lZFMSGUnpackToolStripMenuItem.Text = "LZF MSG Unpack";
+            this.lZFMSGUnpackToolStripMenuItem.Click += new System.EventHandler(this.lZFMSGUnpackToolStripMenuItem_Click);
+            // 
             // แกไขToolStripMenuItem
             // 
             this.แกไขToolStripMenuItem.Name = "แกไขToolStripMenuItem";
@@ -276,28 +284,35 @@ namespace Unpacker
             this.currentOpenFileLabel.Text = "label1";
             this.currentOpenFileLabel.Visible = false;
             // 
-            // lZFMSGUnpackToolStripMenuItem
+            // checkBox1
             // 
-            this.lZFMSGUnpackToolStripMenuItem.Name = "lZFMSGUnpackToolStripMenuItem";
-            this.lZFMSGUnpackToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
-            this.lZFMSGUnpackToolStripMenuItem.Text = "LZF MSG Unpack";
-            this.lZFMSGUnpackToolStripMenuItem.Click += new System.EventHandler(this.lZFMSGUnpackToolStripMenuItem_Click);
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.checkBox1.Location = new System.Drawing.Point(357, 7);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(134, 17);
+            this.checkBox1.TabIndex = 12;
+            this.checkBox1.Text = "Encrypt Packet Output";
+            this.checkBox1.UseVisualStyleBackColor = false;
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1164, 569);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.currentOpenFileLabel);
             this.Controls.Add(this.labelRowCount);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.menuStrip1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Main";
-            this.Text = "JvCryption Reader";
+            this.Text = "`";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -332,6 +347,7 @@ namespace Unpacker
         private System.Windows.Forms.ToolStripMenuItem lZFUnpackToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem lZFPackToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem lZFMSGUnpackToolStripMenuItem;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 
